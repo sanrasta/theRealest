@@ -8,6 +8,7 @@ export default function Motto() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useIsomorphicLayoutEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let ctx: any;
     (async () => {
       const gsap = await loadGsap();
@@ -77,9 +78,9 @@ export default function Motto() {
           className="text-5xl md:text-7xl font-extrabold tracking-tight mb-12 leading-tight"
           style={{ color: '#FFFCE1' }}
         >
-          "Invest in vision,<br />
+          &quot;Invest in vision,<br />
           build with purpose,<br />
-          grow with integrity."
+          grow with integrity.&quot;
         </blockquote>
         <p 
           data-motto-sub

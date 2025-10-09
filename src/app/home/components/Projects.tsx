@@ -28,6 +28,7 @@ export default function Projects() {
   const spacerRef = useRef<HTMLDivElement>(null);
 
   useIsomorphicLayoutEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let ctx: any;
     (async () => {
       const gsap = await loadGsap();

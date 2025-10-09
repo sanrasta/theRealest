@@ -4,25 +4,11 @@ import { useRef } from 'react';
 import { useIsomorphicLayoutEffect } from '@/utils/hooks/useIsomorphicLayoutEffect';
 import { loadGsap } from '@/utils/gsapClient';
 
-const values = [
-  {
-    title: 'Craft over speed',
-    description: 'We believe in the power of deliberate design and thoughtful execution.',
-  },
-  {
-    title: 'Impact over scale',
-    description: 'Meaningful outcomes for real people, not vanity metrics.',
-  },
-  {
-    title: 'Partnership over transaction',
-    description: 'We build alongside founders, not from a distance.',
-  },
-];
-
 export default function RealJourney() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useIsomorphicLayoutEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let ctx: any;
     (async () => {
       const gsap = await loadGsap();
@@ -166,7 +152,7 @@ export default function RealJourney() {
           >
             We believe in transparency, accountability, and long-term thinking. Our partnerships are 
             built on mutual respect and shared ambition. We invest not just capital, but time, 
-            expertise, and unwavering commitment to our founders' success.
+            expertise, and unwavering commitment to our founders&apos; success.
           </p>
           
           {/* Relationships Title - positioned in same spot */}
