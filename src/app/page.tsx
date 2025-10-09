@@ -2,6 +2,7 @@ import RealJourney from '@/app/home/components/RealJourney';
 import Partners from '@/app/home/components/Partners';
 import Projects from '@/app/home/components/Projects';
 import Motto from '@/app/home/components/Motto';
+import ScrollSection from '@/app/home/components/ScrollSection';
 import About from '@/app/home/components/About';
 
 export default function Page() {
@@ -11,6 +12,7 @@ export default function Page() {
       <Partners />
       <Projects />
       <Motto />
+      <ScrollSection />
       <About />
     </>
   );

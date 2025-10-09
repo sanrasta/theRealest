@@ -95,11 +95,19 @@ export default function Header() {
           </nav>
           <button 
             onClick={toggleTheme}
-            className="text-sm border px-3 py-1 rounded-lg transition-colors hover:bg-neutral-800/10"
-            data-nav-link
+            className="relative w-12 h-6 rounded-full transition-all duration-300 ease-in-out"
+            style={{
+              backgroundColor: isDarkMode ? '#333333' : '#e5e5e5',
+            }}
             aria-label="Toggle theme"
           >
-            {isDarkMode ? '☀️' : '🌙'}
+            <span 
+              className="absolute top-0.5 left-0.5 w-5 h-5 rounded-full transition-all duration-300 ease-in-out"
+              style={{
+                backgroundColor: isDarkMode ? '#FFFCE1' : '#0d0d0d',
+                transform: isDarkMode ? 'translateX(0)' : 'translateX(24px)',
+              }}
+            />
           </button>
           <button onClick={toggleNav} className="md:hidden text-sm border px-3 py-1 rounded-lg" data-nav-link>
             Menu
