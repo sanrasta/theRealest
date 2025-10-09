@@ -1,14 +1,25 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useUIStore } from '@/store/ui.store';
 import { useIsomorphicLayoutEffect } from '@/utils/hooks/useIsomorphicLayoutEffect';
 import { loadGsap } from '@/utils/gsapClient';
 
 export default function Header() {
-  const { navOpen, toggleNav } = useUIStore();
+  const { navOpen, toggleNav, isDarkMode, toggleTheme } = useUIStore();
   const headerRef = useRef<HTMLElement>(null);
+
+  // Initialize theme on mount
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (isDarkMode) {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    }
+  }, [isDarkMode]);
 
   useIsomorphicLayoutEffect(() => {
     let ctx: any;
@@ -25,11 +36,19 @@ export default function Header() {
       gsap.registerPlugin(ScrollTrigger);
 
       ctx = gsap.context(() => {
-        // Color change animation
-        gsap.to(headerRef.current, {
-          backgroundColor: '#ffffff',
-          color: '#0d0d0d',
-          borderBottomColor: '#e5e5e5',
+        // Color change animation - invert colors on scroll
+        const initialBg = isDarkMode ? '#0d0d0d' : '#FFFCE1';
+        const initialFg = isDarkMode ? '#FFFCE1' : '#0d0d0d';
+        const scrollBg = isDarkMode ? '#FFFCE1' : '#0d0d0d';
+        const scrollFg = isDarkMode ? '#0d0d0d' : '#FFFCE1';
+        const scrollBorder = isDarkMode ? '#e5e5e5' : '#333333';
+
+        gsap.fromTo(headerRef.current, {
+          backgroundColor: initialBg,
+          borderBottomColor: isDarkMode ? '#333333' : '#e5e5e5',
+        }, {
+          backgroundColor: scrollBg,
+          borderBottomColor: scrollBorder,
           scrollTrigger: {
             trigger: 'body',
             start: 'top -50',
@@ -39,8 +58,10 @@ export default function Header() {
         });
 
         // Animate links color
-        gsap.to('[data-nav-link]', {
-          color: '#0d0d0d',
+        gsap.fromTo('[data-nav-link]', {
+          color: initialFg,
+        }, {
+          color: scrollFg,
           scrollTrigger: {
             trigger: 'body',
             start: 'top -50',
@@ -52,25 +73,37 @@ export default function Header() {
     })();
 
     return () => ctx?.revert();
-  }, []);
+  }, [isDarkMode]);
+
+  const headerBg = isDarkMode ? '#0d0d0d' : '#FFFCE1';
 
   return (
     <header 
       ref={headerRef}
       className="border-b border-neutral-800 backdrop-blur-md transition-colors"
-      style={{ backgroundColor: '#0d0d0d', zIndex: 9999, position: 'fixed', top: 0, left: 0, right: 0 }}
+      style={{ backgroundColor: headerBg, zIndex: 9999, position: 'fixed', top: 0, left: 0, right: 0 }}
     >
       <div className="container flex items-center justify-between py-4">
         <Link href="/" className="font-semibold text-xl" data-nav-link>
           THE REALEST
         </Link>
-        <nav className={`${navOpen ? 'block' : 'hidden'} md:flex gap-6 text-sm`}>
-          <Link href="/" data-nav-link>Home</Link>
-          <Link href="/contact-us" data-nav-link>Contact</Link>
-        </nav>
-        <button onClick={toggleNav} className="md:hidden text-sm border px-3 py-1 rounded-lg" data-nav-link>
-          Menu
-        </button>
+        <div className="flex items-center gap-6">
+          <nav className={`${navOpen ? 'block' : 'hidden'} md:flex gap-6 text-sm`}>
+            <Link href="/" data-nav-link>Home</Link>
+            <Link href="/contact-us" data-nav-link>Contact</Link>
+          </nav>
+          <button 
+            onClick={toggleTheme}
+            className="text-sm border px-3 py-1 rounded-lg transition-colors hover:bg-neutral-800/10"
+            data-nav-link
+            aria-label="Toggle theme"
+          >
+            {isDarkMode ? '☀️' : '🌙'}
+          </button>
+          <button onClick={toggleNav} className="md:hidden text-sm border px-3 py-1 rounded-lg" data-nav-link>
+            Menu
+          </button>
+        </div>
       </div>
     </header>
   );

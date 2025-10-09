@@ -124,7 +124,7 @@ export default function RealJourney() {
           {/* Vision Title */}
           <h2 
             data-vision-title 
-            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-8 opacity-0"
+            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 md:mb-8 opacity-0"
             style={{ transform: 'translateY(30px)' }}
           >
             Vision
@@ -133,7 +133,7 @@ export default function RealJourney() {
           {/* Vision Content */}
           <p
             data-vision-content
-            className="text-muted text-lg md:text-xl max-w-3xl leading-relaxed opacity-0 mb-12"
+            className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed opacity-0 mb-12"
             style={{ transform: 'translateY(30px)' }}
           >
             We see a future where capital flows toward projects that elevate human experience, not
@@ -144,7 +144,7 @@ export default function RealJourney() {
           {/* Values Title - positioned in same spot as Vision */}
           <h2 
             data-values-title 
-            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-8 opacity-0 absolute top-0"
+            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 md:mb-8 opacity-0 absolute top-0"
             style={{ transform: 'translateX(100px)' }}
           >
             Values
@@ -153,8 +153,8 @@ export default function RealJourney() {
           {/* Values Content - positioned where Vision content is */}
           <p
             data-values-content
-            className="text-muted text-lg md:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
-            style={{ transform: 'translateX(100px)', top: '5.5rem' }}
+            className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
+            style={{ transform: 'translateX(100px)', top: '4.5rem' }}
           >
             We believe in transparency, accountability, and long-term thinking. Our partnerships are 
             built on mutual respect and shared ambition. We invest not just capital, but time, 
@@ -164,7 +164,7 @@ export default function RealJourney() {
           {/* Relationships Title - positioned in same spot */}
           <h2 
             data-relationships-title 
-            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-8 opacity-0 absolute top-0"
+            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 md:mb-8 opacity-0 absolute top-0"
             style={{ transform: 'translateX(100px)' }}
           >
             Relationships
@@ -173,8 +173,8 @@ export default function RealJourney() {
           {/* Relationships Content - positioned where Vision content is */}
           <p
             data-relationships-content
-            className="text-muted text-lg md:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
-            style={{ transform: 'translateX(100px)', top: '5.5rem' }}
+            className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
+            style={{ transform: 'translateX(100px)', top: '4.5rem' }}
           >
             At the heart of everything we do are the relationships we build. We partner with founders 
             who share our values and vision. Together, we create lasting impact through trust, 

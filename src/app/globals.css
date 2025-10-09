@@ -2,8 +2,14 @@
 
 :root {
   --bg: #0d0d0d;
-  --fg: #eaeaea;
+  --fg: #FFFCE1;
   --muted: #9a9a9a;
+}
+
+[data-theme="light"] {
+  --bg: #FFFCE1;
+  --fg: #0d0d0d;
+  --muted: #666666;
 }
 
 @theme inline {
@@ -14,11 +20,15 @@
   --font-mono: var(--font-geist-mono);
 }
 
-html,
+html {
+  scroll-snap-type: y proximity;
+}
+
 body {
   height: 100%;
   background-color: var(--bg);
   color: var(--fg);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {

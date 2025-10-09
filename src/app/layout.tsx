@@ -32,8 +32,10 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <main style={{ position: 'relative', zIndex: 1, paddingTop: '73px' }}>{children}</main>
-          <Footer />
+          <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', paddingTop: '73px' }}>
+            <main style={{ position: 'relative', zIndex: 1, flex: '1' }}>{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

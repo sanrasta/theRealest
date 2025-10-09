@@ -1,6 +1,13 @@
 export default function About() {
   return (
-    <section className="section">
+    <section 
+      className="section" 
+      style={{ 
+        position: 'relative', 
+        zIndex: 50, 
+        backgroundColor: 'var(--bg)',
+      }}
+    >
       <div className="container grid gap-8 md:grid-cols-2">
         <h2 className="text-3xl md:text-4xl">About The Realest</h2>
         <p className="text-muted leading-relaxed">
