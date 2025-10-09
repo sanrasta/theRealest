@@ -49,17 +49,16 @@ export default function Projects() {
         gsap.fromTo(sectionRef.current, 
           { 
             yPercent: 100,
-            opacity: 0,
           },
           { 
             yPercent: 0,
-            opacity: 1,
             ease: 'none',
             scrollTrigger: {
               trigger: spacerRef.current,
               start: 'top bottom',
               end: 'bottom bottom',
               scrub: 1,
+              onEnter: () => gsap.to(sectionRef.current, { opacity: 1, duration: 0.1 }),
             },
           }
         );

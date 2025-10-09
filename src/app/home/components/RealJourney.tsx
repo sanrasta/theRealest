@@ -41,11 +41,19 @@ export default function RealJourney() {
         gsap.from('[data-letter]', {
           yPercent: 120,
           opacity: 0,
-          stagger: 0.06,
-          duration: 0.85,
+          stagger: 0.12,
+          duration: 1.4,
           ease: 'power3.out',
+          force3D: true,
+          willChange: 'transform, opacity',
         });
-        gsap.from('[data-sub]', { opacity: 0, y: 10, duration: 0.7, delay: 0.35 });
+        gsap.from('[data-sub]', { 
+          opacity: 0, 
+          y: 10, 
+          duration: 1, 
+          delay: 0.7,
+          force3D: true,
+        });
 
         // Main scroll timeline
         const tl = gsap.timeline({
@@ -95,21 +103,21 @@ export default function RealJourney() {
         <div className="container text-center flex flex-col items-center relative">
           <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight relative z-10">
             <span className="inline-block" data-the>
-              <span data-letter className="inline-block">T</span>
-              <span data-letter className="inline-block">h</span>
-              <span data-letter className="inline-block">e</span>
-              <span data-letter className="inline-block">{'\u00A0'}</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>T</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>h</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>e</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>{'\u00A0'}</span>
             </span>
             <span className="inline-block" data-real style={{ position: 'relative', zIndex: 50 }}>
-              <span data-letter className="inline-block">R</span>
-              <span data-letter className="inline-block">e</span>
-              <span data-letter className="inline-block">a</span>
-              <span data-letter className="inline-block">l</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>R</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>e</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>a</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>l</span>
             </span>
             <span className="inline-block" data-est>
-              <span data-letter className="inline-block">e</span>
-              <span data-letter className="inline-block">s</span>
-              <span data-letter className="inline-block">t</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>e</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>s</span>
+              <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>t</span>
             </span>
           </h1>
           <p data-sub className="mt-6 text-muted text-lg max-w-2xl">
