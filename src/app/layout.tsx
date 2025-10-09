@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <main>{children}</main>
+          <main style={{ position: 'relative', zIndex: 1, paddingTop: '73px' }}>{children}</main>
           <Footer />
         </Providers>
       </body>

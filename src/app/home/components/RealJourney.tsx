@@ -55,6 +55,8 @@ export default function RealJourney() {
             end: '+=400%',
             scrub: 1,
             pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
           },
         });
 
