@@ -1,36 +1,207 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# THE REALEST
+
+A modern venture capital landing page built with Next.js, TypeScript, Tailwind CSS, and GSAP animations.
+
+## Tech Stack
+
+- **Next.js 15** (App Router) + TypeScript
+- **Tailwind CSS v4** (with custom theme tokens)
+- **GSAP** for advanced animations (ScrollTrigger for pinned parallax)
+- **Zustand** for UI state management
+- **React Query** (TanStack) for server state
+- **ESLint** + **Prettier** for code quality
+
+## Project Structure
+
+```
+src/
+  app/
+    components/
+      layout/
+        Header.tsx          # Sticky header with nav
+        Footer.tsx          # Footer component
+    home/
+      components/
+        Hero.tsx            # Animated hero text with GSAP
+        ScrollSection.tsx   # Pinned parallax scroll section
+        About.tsx           # About section
+    layout.tsx              # Root layout with providers
+    page.tsx                # Home page composition
+    providers.tsx           # React Query provider wrapper
+    globals.css             # Tailwind + custom theme tokens
+  lib/
+    queryClient.ts          # React Query configuration
+  store/
+    ui.store.ts             # Zustand UI state (nav toggle, etc.)
+  utils/
+    hooks/
+      useIsomorphicLayoutEffect.ts  # SSR-safe layout effect
+    gsapClient.ts           # GSAP loader with caching
+```
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Architecture Principles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### SOLID & Separation of Concerns
+- **Pages** (`page.tsx`) contain only composition — no logic
+- **Components** are organized by page in dedicated folders
+- **State** is separated: Zustand for UI, React Query for server data
+- **Utilities** are centralized and reusable
 
-## Learn More
+### GSAP Integration (Official Next.js Pattern)
+- Client-side only loading via dynamic import
+- `useIsomorphicLayoutEffect` prevents SSR warnings
+- `gsap.context()` for scoped animations with automatic cleanup
+- ScrollTrigger for advanced scroll-based effects
+- `prefers-reduced-motion` support built-in
 
-To learn more about Next.js, take a look at the following resources:
+### Styling
+- Tailwind v4 with inline theme configuration
+- Custom color tokens: `bg`, `fg`, `muted`
+- Utility classes: `.section`, `.container`
+- Responsive design with mobile-first approach
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Adding New Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Add a New Page
+1. Create `src/app/[route]/components/` directory
+2. Build your section components
+3. Create `src/app/[route]/page.tsx` and compose sections:
 
-## Deploy on Vercel
+```tsx
+import SectionOne from './components/SectionOne';
+import SectionTwo from './components/SectionTwo';
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+export default function Page() {
+  return (
+    <>
+      <SectionOne />
+      <SectionTwo />
+    </>
+  );
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Add GSAP Animation
+Use this pattern for any animated component:
+
+```tsx
+'use client';
+
+import { useRef } from 'react';
+import { useIsomorphicLayoutEffect } from '@/utils/hooks/useIsomorphicLayoutEffect';
+import { loadGsap } from '@/utils/gsapClient';
+
+export default function AnimatedComponent() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useIsomorphicLayoutEffect(() => {
+    let ctx: any;
+    (async () => {
+      const gsap = await loadGsap();
+      if (!gsap || !ref.current) return;
+
+      // Check for reduced motion preference
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;
+
+      // Create scoped context for automatic cleanup
+      ctx = gsap.context(() => {
+        gsap.from('[data-animate]', {
+          opacity: 0,
+          y: 20,
+          duration: 0.8,
+          ease: 'power2.out'
+        });
+      }, ref);
+    })();
+
+    return () => ctx?.revert();
+  }, []);
+
+  return (
+    <div ref={ref}>
+      <h1 data-animate>Animated Content</h1>
+    </div>
+  );
+}
+```
+
+### Add ScrollTrigger Animation
+```tsx
+const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+gsap.registerPlugin(ScrollTrigger);
+
+ctx = gsap.context(() => {
+  gsap.from('[data-element]', {
+    scrollTrigger: {
+      trigger: ref.current,
+      start: 'top center',
+      end: 'bottom center',
+      scrub: true,
+    },
+    opacity: 0,
+    scale: 0.8,
+  });
+}, ref);
+```
+
+## Customization
+
+### Update Theme Colors
+Edit `src/app/globals.css`:
+
+```css
+:root {
+  --bg: #0d0d0d;      /* Background */
+  --fg: #eaeaea;      /* Foreground text */
+  --muted: #9a9a9a;   /* Muted text */
+}
+```
+
+### Add Zustand State
+Edit `src/store/ui.store.ts` or create new stores:
+
+```tsx
+import { create } from 'zustand';
+
+interface MyState {
+  count: number;
+  increment: () => void;
+}
+
+export const useMyStore = create<MyState>((set) => ({
+  count: 0,
+  increment: () => set((s) => ({ count: s.count + 1 })),
+}));
+```
+
+## Resources
+
+- [GSAP + Next.js Official Starters](https://stackblitz.com/@GSAP-dev/collections/gsap-nextjs-starters)
+- [Next.js App Router Docs](https://nextjs.org/docs/app)
+- [Tailwind CSS v4](https://tailwindcss.com/docs)
+- [GSAP Documentation](https://gsap.com/docs/v3/)
+- [React Query Docs](https://tanstack.com/query/latest)
+- [Zustand Docs](https://docs.pmnd.rs/zustand)
+
+## License
+
+Private project for THE REALEST.
