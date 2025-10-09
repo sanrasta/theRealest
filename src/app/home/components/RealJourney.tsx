@@ -41,16 +41,24 @@ export default function RealJourney() {
           force3D: true,
         });
 
+        // Detect mobile
+        const isMobile = window.innerWidth < 768;
+
         // Main scroll timeline
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRef.current,
             start: 'top top',
             end: '+=400%',
-            scrub: 1,
+            scrub: isMobile ? 0.5 : 1,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
+            snap: isMobile ? {
+              snapTo: [0, 0.33, 0.66, 1],
+              duration: { min: 0.2, max: 0.4 },
+              ease: 'power2.inOut',
+            } : false,
           },
         });
 
@@ -58,6 +66,7 @@ export default function RealJourney() {
         tl.to('[data-the]', { opacity: 0, x: -100, duration: 1 }, 0)
           .to('[data-est]', { opacity: 0, x: 100, duration: 1 }, 0)
           .to('[data-sub]', { opacity: 0, y: -20, duration: 0.8 }, 0)
+          .set('[data-sub]', { visibility: 'hidden' }, 0.8)
           .to('[data-real]', { y: '-15vh', scale: 0.9, duration: 1.5 }, 0.5)
           
           // Phase 2: Bring in "Vision" below "Real"
@@ -106,14 +115,14 @@ export default function RealJourney() {
               <span data-letter className="inline-block" style={{ willChange: 'transform, opacity' }}>t</span>
             </span>
           </h1>
-          <p data-sub className="mt-6 text-muted text-lg max-w-2xl">
+          <p data-sub className="mt-6 text-muted text-lg max-w-2xl" style={{ position: 'relative', zIndex: 1 }}>
             Capital for ideas that move humanity forward.
           </p>
         </div>
       </section>
 
       {/* Vision & Values - Centered on screen */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ zIndex: 10 }}>
         <div className="w-full max-w-7xl px-6 mx-auto text-center flex flex-col items-center relative">
           {/* Vision Title */}
           <h2 
@@ -148,7 +157,7 @@ export default function RealJourney() {
           <p
             data-values-content
             className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
-            style={{ transform: 'translateX(100px)', top: '4.5rem' }}
+            style={{ transform: 'translateX(100px)', top: '3.5rem' }}
           >
             We believe in transparency, accountability, and long-term thinking. Our partnerships are 
             built on mutual respect and shared ambition. We invest not just capital, but time, 
@@ -168,7 +177,7 @@ export default function RealJourney() {
           <p
             data-relationships-content
             className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
-            style={{ transform: 'translateX(100px)', top: '4.5rem' }}
+            style={{ transform: 'translateX(100px)', top: '3.5rem' }}
           >
             At the heart of everything we do are the relationships we build. We partner with founders 
             who share our values and vision. Together, we create lasting impact through trust, 
