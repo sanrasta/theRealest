@@ -62,7 +62,7 @@ export default function RealJourney() {
         tl.to('[data-the]', { opacity: 0, x: -100, duration: 1 }, 0)
           .to('[data-est]', { opacity: 0, x: 100, duration: 1 }, 0)
           .to('[data-sub]', { opacity: 0, y: -20, duration: 0.8 }, 0)
-          .to('[data-real]', { y: '-31vh', scale: 0.9, duration: 1.5 }, 0.5)
+          .to('[data-real]', { y: '-15vh', scale: 0.9, duration: 1.5 }, 0.5)
           
           // Phase 2: Bring in "Vision" below "Real"
           .to('[data-vision-title]', { opacity: 1, y: 0, duration: 1 }, 1.5)
@@ -70,9 +70,15 @@ export default function RealJourney() {
           
           // Phase 3: Horizontal scroll - fade out Vision, fade in Values
           .to('[data-vision-title]', { opacity: 0, x: -100, duration: 0.8 }, 3)
-          .to('[data-vision-content]', { opacity: 0, y: -30, duration: 0.8 }, 3)
+          .to('[data-vision-content]', { opacity: 0, x: -100, duration: 0.8 }, 3)
           .to('[data-values-title]', { opacity: 1, x: 0, duration: 0.8 }, 3.3)
-          .to('[data-value-card]', { opacity: 1, y: 0, stagger: 0.15, duration: 1 }, 3.8);
+          .to('[data-values-content]', { opacity: 1, x: 0, duration: 0.8 }, 3.3)
+          
+          // Phase 4: Horizontal scroll - fade out Values, fade in Relationships
+          .to('[data-values-title]', { opacity: 0, x: -100, duration: 0.8 }, 4.5)
+          .to('[data-values-content]', { opacity: 0, x: -100, duration: 0.8 }, 4.5)
+          .to('[data-relationships-title]', { opacity: 1, x: 0, duration: 0.8 }, 4.8)
+          .to('[data-relationships-content]', { opacity: 1, x: 0, duration: 0.8 }, 4.8);
 
       }, containerRef);
     })();
@@ -110,8 +116,8 @@ export default function RealJourney() {
         </div>
       </section>
 
-      {/* Vision & Values - Positioned below where Real lands */}
-      <div className="absolute inset-0 flex items-start justify-center pointer-events-none" style={{ top: '20vh' }}>
+      {/* Vision & Values - Centered on screen */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-full max-w-7xl px-6 mx-auto text-center flex flex-col items-center relative">
           {/* Vision Title */}
           <h2 
@@ -142,20 +148,36 @@ export default function RealJourney() {
             Values
           </h2>
           
-          {/* Values Cards - positioned where Vision content was */}
-          <div className="grid gap-8 md:grid-cols-3 w-full max-w-6xl opacity-0 absolute" style={{ top: '8rem' }}>
-            {values.map((value, i) => (
-              <div
-                key={i}
-                data-value-card
-                className="rounded-xl border border-neutral-800 p-8 bg-neutral-900/40 backdrop-blur-sm pointer-events-auto"
-                style={{ transform: 'translateY(40px)' }}
-              >
-                <h3 className="text-xl md:text-2xl font-semibold mb-4">{value.title}</h3>
-                <p className="text-muted leading-relaxed">{value.description}</p>
-              </div>
-            ))}
-          </div>
+          {/* Values Content - positioned where Vision content is */}
+          <p
+            data-values-content
+            className="text-muted text-lg md:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
+            style={{ transform: 'translateX(100px)', top: '5.5rem' }}
+          >
+            We believe in transparency, accountability, and long-term thinking. Our partnerships are 
+            built on mutual respect and shared ambition. We invest not just capital, but time, 
+            expertise, and unwavering commitment to our founders' success.
+          </p>
+          
+          {/* Relationships Title - positioned in same spot */}
+          <h2 
+            data-relationships-title 
+            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-8 opacity-0 absolute top-0"
+            style={{ transform: 'translateX(100px)' }}
+          >
+            Relationships
+          </h2>
+          
+          {/* Relationships Content - positioned where Vision content is */}
+          <p
+            data-relationships-content
+            className="text-muted text-lg md:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
+            style={{ transform: 'translateX(100px)', top: '5.5rem' }}
+          >
+            At the heart of everything we do are the relationships we build. We partner with founders 
+            who share our values and vision. Together, we create lasting impact through trust, 
+            collaboration, and a commitment to building something truly meaningful.
+          </p>
         </div>
       </div>
     </div>
