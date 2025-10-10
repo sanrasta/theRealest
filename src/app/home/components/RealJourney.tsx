@@ -157,7 +157,7 @@ export default function RealJourney() {
           <p
             data-values-content
             className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
-            style={{ transform: 'translateX(100px)', top: '3.5rem' }}
+            style={{ transform: 'translateX(100px)', top: 'calc(2.25rem + 1.5rem)' }}
           >
             We believe in transparency, accountability, and long-term thinking. Our partnerships are 
             built on mutual respect and shared ambition. We invest not just capital, but time, 
@@ -177,7 +177,7 @@ export default function RealJourney() {
           <p
             data-relationships-content
             className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
-            style={{ transform: 'translateX(100px)', top: '3.5rem' }}
+            style={{ transform: 'translateX(100px)', top: 'calc(2.25rem + 1.5rem)' }}
           >
             At the heart of everything we do are the relationships we build. We partner with founders 
             who share our values and vision. Together, we create lasting impact through trust, 
