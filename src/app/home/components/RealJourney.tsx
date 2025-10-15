@@ -76,14 +76,11 @@ export default function RealJourney() {
           // Phase 3: Horizontal scroll - fade out Vision, fade in Values
           .to('[data-vision-title]', { opacity: 0, x: -100, duration: 0.8 }, 3)
           .to('[data-vision-content]', { opacity: 0, x: -100, duration: 0.8 }, 3)
-          .to('[data-values-title]', { opacity: 1, x: 0, duration: 0.8 }, 3.3)
-          .to('[data-values-content]', { opacity: 1, x: 0, duration: 0.8 }, 3.3)
+          .to('[data-values-section]', { opacity: 1, x: 0, duration: 0.8 }, 3.3)
           
           // Phase 4: Horizontal scroll - fade out Values, fade in Relationships
-          .to('[data-values-title]', { opacity: 0, x: -100, duration: 0.8 }, 4.5)
-          .to('[data-values-content]', { opacity: 0, x: -100, duration: 0.8 }, 4.5)
-          .to('[data-relationships-title]', { opacity: 1, x: 0, duration: 0.8 }, 4.8)
-          .to('[data-relationships-content]', { opacity: 1, x: 0, duration: 0.8 }, 4.8);
+          .to('[data-values-section]', { opacity: 0, x: -100, duration: 0.8 }, 4.5)
+          .to('[data-relationships-section]', { opacity: 1, x: 0, duration: 0.8 }, 4.8);
 
       }, containerRef);
     })();
@@ -144,45 +141,43 @@ export default function RealJourney() {
             intention, craft, and a genuine commitment to lasting impact.
           </p>
           
-          {/* Values Title - positioned in same spot as Vision */}
-          <h2 
-            data-values-title 
-            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 md:mb-8 opacity-0 absolute top-0"
-            style={{ transform: 'translateX(100px)' }}
-          >
-            Values
-          </h2>
+          {/* Values Section - positioned in same spot as Vision */}
+          <div className="absolute top-0 left-0 right-0 flex flex-col items-center opacity-0" data-values-section style={{ transform: 'translateX(100px)' }}>
+            <h2 
+              data-values-title 
+              className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 md:mb-8"
+            >
+              Values
+            </h2>
+            
+            <p
+              data-values-content
+              className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mb-12"
+            >
+              We believe in transparency, accountability, and long-term thinking. Our partnerships are 
+              built on mutual respect and shared ambition. We invest not just capital, but time, 
+              expertise, and unwavering commitment to our founders&apos; success.
+            </p>
+          </div>
           
-          {/* Values Content - positioned where Vision content is */}
-          <p
-            data-values-content
-            className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
-            style={{ transform: 'translateX(100px)', top: 'calc(2.25rem + 1.5rem)' }}
-          >
-            We believe in transparency, accountability, and long-term thinking. Our partnerships are 
-            built on mutual respect and shared ambition. We invest not just capital, but time, 
-            expertise, and unwavering commitment to our founders&apos; success.
-          </p>
-          
-          {/* Relationships Title - positioned in same spot */}
-          <h2 
-            data-relationships-title 
-            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 md:mb-8 opacity-0 absolute top-0"
-            style={{ transform: 'translateX(100px)' }}
-          >
-            Relationships
-          </h2>
-          
-          {/* Relationships Content - positioned where Vision content is */}
-          <p
-            data-relationships-content
-            className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed opacity-0 absolute mb-12"
-            style={{ transform: 'translateX(100px)', top: 'calc(2.25rem + 1.5rem)' }}
-          >
-            At the heart of everything we do are the relationships we build. We partner with founders 
-            who share our values and vision. Together, we create lasting impact through trust, 
-            collaboration, and a commitment to building something truly meaningful.
-          </p>
+          {/* Relationships Section - positioned in same spot */}
+          <div className="absolute top-0 left-0 right-0 flex flex-col items-center opacity-0" data-relationships-section style={{ transform: 'translateX(100px)' }}>
+            <h2 
+              data-relationships-title 
+              className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 md:mb-8"
+            >
+              Relationships
+            </h2>
+            
+            <p
+              data-relationships-content
+              className="text-muted text-base md:text-lg lg:text-xl max-w-3xl leading-relaxed mb-12"
+            >
+              At the heart of everything we do are the relationships we build. We partner with founders 
+              who share our values and vision. Together, we create lasting impact through trust, 
+              collaboration, and a commitment to building something truly meaningful.
+            </p>
+          </div>
         </div>
       </div>
     </div>
